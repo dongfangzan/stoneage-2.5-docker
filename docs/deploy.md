@@ -9,7 +9,14 @@
 ## 1. 准备代码
 
 ```bash
-git clone <本仓库地址> stoneage
+git clone https://github.com/dongfangzan/stoneage-2.5-docker.git stoneage
+cd stoneage
+```
+
+HTTPS 到 github.com 超时的话，用 SSH 443：
+
+```bash
+git clone ssh://git@ssh.github.com:443/dongfangzan/stoneage-2.5-docker.git stoneage
 cd stoneage
 ```
 

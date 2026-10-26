@@ -41,7 +41,8 @@ Windows 虚拟机 / 另一台电脑
 ### 启动服务端
 
 ```bash
-git clone <本仓库地址> stoneage && cd stoneage
+git clone https://github.com/dongfangzan/stoneage-2.5-docker.git stoneage && cd stoneage
+# 若 HTTPS 到 github.com 超时，改走 SSH：git clone ssh://git@ssh.github.com:443/dongfangzan/stoneage-2.5-docker.git stoneage
 cp .env.example .env          # 想改端口/口令就改，默认也能直接跑
 ./scripts/up.sh
 ```
