@@ -1,0 +1,32 @@
+# 客户端整包（约 500 MB，按文档里的地址下载）
+client-2.5/
+client-8.0/
+
+# 其他版本压缩包
+*.tar.gz
+
+# 本地配置与备份
+.env
+backup-*.sql
+char-*.tgz
+
+# 编译产物与运行日志
+**/*.o
+**/*.a
+**/*.exe
+server-2.5/gmsv/debug
+server-2.5/gmsv/data.zip
+server-2.5/gmsv/something.zip
+server-2.5/saac/saac.zip
+server-2.5/gmsv/log/*
+server-2.5/saac/log/*
+server-2.5/saac/char/*
+server-2.5/saac/lock/*
+server-2.5/saac/char_sleep/*
+server-2.5/saac/mail/*
+
+# 工具目录
+.mimosa/
+**/.mimosa/
+.DS_Store
+backups/

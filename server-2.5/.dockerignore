@@ -1,0 +1,10 @@
+.git
+**/*.o
+**/*.a
+**/*.exe
+gmsv/data.zip
+gmsv/something.zip
+saac/saac.zip
+gmsv/log/*
+saac/log/*
+saac/char/*

@@ -1,0 +1,51 @@
+services:
+  db:
+    image: stoneage-mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-sa_local_root}
+      MARIADB_DATABASE: sa
+    command: ["--character-set-server=latin1", "--collation-server=latin1_swedish_ci"]
+    volumes:
+      - ./server-2.5/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MARIADB_ROOT_PASSWORD"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  saac:
+    image: stoneage-25:local
+    restart: unless-stopped
+    build: ./server-2.5
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PASS: ${DB_ROOT_PASSWORD:-sa_local_root}
+      AC_PASS: ${AC_PASS:-test}
+    volumes:
+      - saac-char:/app/saac/char
+
+  gmsv:
+    image: stoneage-25:local
+    restart: unless-stopped
+    build: ./server-2.5
+    entrypoint: ["/usr/local/bin/entrypoint-gmsv"]
+    working_dir: /app/gmsv
+    depends_on:
+      - saac
+    environment:
+      AC_HOST: saac
+      AC_PORT: "9300"
+      AC_PASS: ${AC_PASS:-test}
+    ports:
+      - "${SERVER_BIND:-0.0.0.0}:${SERVER_PORT:-9065}:9065"
+    volumes:
+      - saac-char:/app/saac/char
+
+volumes:
+  db-data:
+  saac-char:
