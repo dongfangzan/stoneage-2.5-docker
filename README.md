@@ -73,7 +73,7 @@ cp .env.example .env          # 想改端口/口令就改，默认也能直接�
 ## 从家里 / 外网访问
 
 - **同一局域网**：`./scripts/status.sh` 或 `ipconfig getifaddr en0` 取 Mac 的 IP，客户端填 `<IP>:9065`。虚拟机用桥接，不要 NAT。
-- **外网**：推荐 Tailscale，装完两端登录同一账号，用 Mac 的 `100.x` 地址直连，不用动路由器。端口映射、DDNS、frp 等做法和注意事项见 [docs/remote-access.md](docs/remote-access.md)。
+- **外网**：推荐 Tailscale，装完两端登录同一账号，用 Mac 的 `100.x` 地址直连，不用动路由器。临时用可 `./scripts/tunnel.sh pinggy` 开一个 60 分钟的公网端口（已验证可用）。端口映射、DDNS、frp 等做法和注意事项见 [docs/remote-access.md](docs/remote-access.md)。
 - 只允许本机连：在 `.env` 里设 `SERVER_BIND=127.0.0.1`。
 
 ## 账号与 GM
@@ -117,7 +117,7 @@ cp .env.example .env          # 想改端口/口令就改，默认也能直接�
 .
 ├── docker-compose.yml
 ├── .env.example
-├── scripts/                 # up / down / reset / status / backup / restore
+├── scripts/                 # up / down / reset / status / backup / restore / tunnel
 ├── server-2.5/
 │   ├── Dockerfile           # linux/386 + gnu89 构建
 │   ├── db/init.sql

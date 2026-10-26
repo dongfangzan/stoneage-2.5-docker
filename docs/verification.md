@@ -75,12 +75,23 @@ echo y | ./scripts/restore.sh backups/db-...sql backups/char-...tgz
 - 备份产出 `db-*.sql`（2.7 KB）和 `char-*.tgz`（2.0 KB）。
 - 恢复后容器自动拉起，账号条数仍为 2。
 
+## 6. 公网隧道
+
+```bash
+./scripts/tunnel.sh pinggy
+```
+
+- 分配到 `tcp://twfqk-222-197-110-59.run.pinggy-free.link:38215`。
+- 从本机经公网回连成功：`('139.162.8.164', 38215)`。
+- `bore.pub:7835` 在本网络超时，未验证成功。
+
 ## 未覆盖
 
 - **客户端实机登录**：需要 Windows 虚拟机，本次只在服务端验证到握手。
 - **长时间稳定性**：只跑了短时进程，没有压测和跨天运行。
 - **裸机 Linux x86_64**：只在 Apple Silicon + OrbStack 上验证。
-- **公网链路**：Tailscale / 端口映射只写了步骤，没有从外部网络实测。
+- **Tailscale / 路由器端口映射**：只写了步骤，没有实测。
+- **pinggy 下的客户端登录**：只验证了 TCP 端口可达，没有在客户端里完整登录。
 - **全新机器**：没有在干净机器上完整走一遍 clone 到登录。
 
 这些属于使用前应自己补测的部分。

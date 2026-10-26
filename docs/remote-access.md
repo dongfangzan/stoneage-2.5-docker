@@ -44,6 +44,35 @@
 
 macOS 自带防火墙如果开着，允许 OrbStack/Docker 接收入站连接。
 
+## 临时公网端口（无需账号）
+
+只想临时从外面连一下、不装 VPN 时用。适合短时间使用，不适合长期开服。
+
+### pinggy（已验证可用，60 分钟）
+
+```bash
+./scripts/tunnel.sh pinggy
+```
+
+等价于：
+
+```bash
+ssh -p 443 -R0:127.0.0.1:9065 tcp@a.pinggy.io
+```
+
+输出里有一行 `tcp://xxxx.run.pinggy-free.link:端口`，客户端填其中的主机和端口。走 443，普通网络一般能通。60 分钟到期重连会换地址。
+
+### bore（公共服务器，可能被网络拦）
+
+```bash
+brew install bore-cli
+./scripts/tunnel.sh bore
+```
+
+输出形如 `listening at bore.pub:41234`。本机网络实测 `bore.pub:7835` 超时，pinggy 正常，优先用前者。
+
+两种方式的共同注意点：公网端口公开可见，跑之前至少改掉 GM 口令；断开重连会换端口；只转发游戏端口，不要顺手把数据库也发出去。
+
 ## 外网直连：frp + 一台 VPS
 
 没有公网 IP、又不想用 Tailscale 时用这个，需要一台有公网 IP 的 VPS 和域名（可选）。
